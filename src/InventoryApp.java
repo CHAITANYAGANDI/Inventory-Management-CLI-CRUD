@@ -9,10 +9,14 @@ public class InventoryApp {
         System.out.println("3. Search Product by ID");
         System.out.println("4. Update Product Quantity");
         System.out.println("5. Delete Product");
-        System.out.println("6. Exit");
+        System.out.println("6. View Low Stock Products");
+        System.out.println("7. Search Product by Name");
+        System.out.println("8. View Product by Category ID");
+        System.out.println("9. View Product with Category Name");
+        System.out.println("10. Exit");
     }
 
-    public static Product addProducts(Scanner input){
+    public static Product addProduct(Scanner input){
 
         input.nextLine();
 
@@ -38,7 +42,7 @@ public class InventoryApp {
     public static void main(String[] args) {
 
         Scanner input = new Scanner(System.in);
-        ProductDAO productdao = new ProductDAO();
+        ProductDAO productDAO = new ProductDAO();
 
         while(true){
 
@@ -48,24 +52,22 @@ public class InventoryApp {
 
             if(userInput == 1){
 
-                Product newProduct = addProducts(input);
+                Product newProduct = addProduct(input);
 
-                productdao.addProduct(newProduct);
+                productDAO.addProduct(newProduct);
             }
 
             else if(userInput == 2){
 
-                productdao.viewAllProducts();
+                productDAO.viewAllProducts();
             }
 
             else if(userInput == 3){
 
-                input.nextLine();
-
                 System.out.println("Enter Product ID");
                 int searchProductID = input.nextInt();
 
-                Product foundProduct = productdao.searchProductById(searchProductID);
+                Product foundProduct = productDAO.searchProductById(searchProductID);
 
                 if (foundProduct != null) {
                     foundProduct.displayProductInfo();
@@ -76,28 +78,61 @@ public class InventoryApp {
 
             else if(userInput == 4){
 
-                input.nextLine();
-
                 System.out.println("Enter Product ID");
                 int updateProductId = input.nextInt();
 
                 System.out.println("Enter Quantity");
                 int updateQuantity = input.nextInt();
 
-                productdao.updateProductQuantity(updateProductId,updateQuantity);
+                productDAO.updateProductQuantity(updateProductId,updateQuantity);
             }
 
             else if(userInput == 5){
 
-                input.nextLine();
-
                 System.out.println("Enter Product ID");
                 int deleteProductId = input.nextInt();
 
-                productdao.deleteProduct(deleteProductId);
+                productDAO.deleteProduct(deleteProductId);
             }
 
             else if(userInput == 6){
+
+                System.out.println("Enter threshold");
+                int threshold = input.nextInt();
+
+                productDAO.viewLowStockProducts(threshold);
+
+            }
+
+            else if(userInput == 7){
+
+                input.nextLine();
+
+                System.out.println("Enter product name");
+                String productName = input.nextLine();
+
+                productDAO.searchProductByName(productName);
+            }
+
+            else if(userInput == 8){
+
+                System.out.println("Enter category ID");
+                int categoryID = input.nextInt();
+
+                productDAO.viewProductsByCategory(categoryID);
+            }
+
+            else if(userInput == 9){
+
+                input.nextLine();
+
+                System.out.println("Enter category name");
+                String categoryName = input.nextLine();
+
+                productDAO.viewProductsWithCategoryName(categoryName);
+            }
+
+            else if(userInput == 10){
 
                 System.out.println("Exiting...");
                 break;

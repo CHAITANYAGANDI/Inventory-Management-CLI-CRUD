@@ -23,8 +23,25 @@ bin/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
-.vscode/
 
-### Mac OS ###
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*.swo
+
+# Build
+target/
+*.class
+*.jar
+*.war
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Maven
+*.log
